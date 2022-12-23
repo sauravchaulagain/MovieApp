@@ -4,30 +4,14 @@
 
 import 'dart:convert';
 
-SamplePosts samplePostsFromJson(String str) =>
-    SamplePosts.fromJson(json.decode(str));
+List<SamplePosts> samplePostsFromJson(String str) => List<SamplePosts>.from(
+    json.decode(str).map((x) => SamplePosts.fromJson(x)));
 
-String samplePostsToJson(SamplePosts data) => json.encode(data.toJson());
+String samplePostsToJson(List<SamplePosts> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class SamplePosts {
   SamplePosts({
-    this.results,
-  });
-
-  List<Result> results;
-
-  factory SamplePosts.fromJson(Map<String, dynamic> json) => SamplePosts(
-        results:
-            List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "results": List<dynamic>.from(results.map((x) => x.toJson())),
-      };
-}
-
-class Result {
-  Result({
     this.adult,
     this.backdropPath,
     this.id,
@@ -57,7 +41,7 @@ class Result {
   double voteAverage;
   int voteCount;
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
+  factory SamplePosts.fromJson(Map<String, dynamic> json) => SamplePosts(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
         id: json["id"],
