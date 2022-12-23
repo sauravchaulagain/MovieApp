@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'models.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -15,8 +15,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<SamplePosts> samplePosts = [];
   Future<List<SamplePosts>> getData() async {
-    final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+    final response = await http.get(Uri.parse(
+        'https://raw.githubusercontent.com/sauravchaulagain/MovieApp/main/assets/movie.json'));
     var data = jsonDecode(response.body);
 
     for (Map<String, dynamic> index in data) {
@@ -28,46 +28,67 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Center(
-          child: Row(
-            children: [
-              const Icon(
-                Icons.menu_outlined,
-                size: 30,
-                color: Colors.white,
-              ),
-              const SizedBox(width: 100),
-              Text(
-                'MovieApp',
-                style: TextStyle(
-                  fontFamily: 'hello',
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
-                ),
-              )
-            ],
+          child: Text(
+            "MovieApp",
+            style: TextStyle(
+              fontFamily: 'hello',
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
           ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 18),
-        child: ListView(
+        padding: const EdgeInsets.all(26.0),
+        child: Column(
           children: [
-            TopDecor(),
-            Text(
-              "Trending",
-              style: TextStyle(
-                fontFamily: 'hello',
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+            Container(
+              height: 270,
+              child: FutureBuilder(
+                future: getData(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: samplePosts.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.network(
+                                'https://image.tmdb.org/t/p/w500/' +
+                                    samplePosts[index].posterPath,
+                                height: 200,
+                                fit: BoxFit.fitHeight,
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'Title: ${samplePosts[index].title}',
+                                style: TextStyle(
+                                  fontFamily: 'hello',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                },
               ),
             ),
-            SizedBox(height: 10),
           ],
         ),
       ),
@@ -98,27 +119,6 @@ class _HomePageState extends State<HomePage> {
               color: Colors.grey),
         ),
         SizedBox(height: 20),
-        Container(
-          height: 250,
-          width: 550,
-          color: Colors.red,
-          child: FutureBuilder(
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    var list = snapshot.data;
-                    return Text(
-                        '{samplePosts[index].totalResults["original_language"]}');
-                  },
-                );
-              } else {
-                return CircularProgressIndicator();
-              }
-            },
-          ),
-        )
       ],
     );
   }
