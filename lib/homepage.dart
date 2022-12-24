@@ -157,6 +157,25 @@ class _HomePageState extends State<HomePage> {
             border: Border.all(color: Colors.black54),
             color: Color(0xFF292b37),
           ),
+          child: Row(
+            children: [
+              SizedBox(width: 20),
+              Icon(
+                Icons.search,
+                size: 30,
+                color: Colors.white30,
+              ),
+              Text(
+                'Search',
+                style: TextStyle(
+                  fontFamily: 'hello',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white30,
+                ),
+              )
+            ],
+          ),
         ),
         SizedBox(height: 20),
       ],
