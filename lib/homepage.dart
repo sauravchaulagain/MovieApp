@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:movieapp/pages/moviedetail.dart';
 
 import 'models.dart';
 
@@ -28,6 +29,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Center(
@@ -45,40 +47,78 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.all(26.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            TopDecor(),
+            Text(
+              'Trending',
+              style: TextStyle(
+                fontFamily: 'hello',
+                fontSize: 28,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(height: 20),
             Container(
-              height: 270,
+              height: 310,
               child: FutureBuilder(
                 future: getData(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+                    print(samplePosts[2].title);
                     return ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: samplePosts.length,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.network(
-                                'https://image.tmdb.org/t/p/w500/' +
-                                    samplePosts[index].posterPath,
-                                height: 200,
-                                fit: BoxFit.fitHeight,
+                        return InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    MovieDetail(sample: samplePosts[index]),
                               ),
-                              SizedBox(height: 10),
-                              Text(
-                                'Title: ${samplePosts[index].title}',
-                                style: TextStyle(
-                                  fontFamily: 'hello',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 290,
+                              width: 180,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 220,
+                                    width: 160,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(18),
+
+                                        //  border: Border.all(color: Colors.white),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                              'https://image.tmdb.org/t/p/w500/' +
+                                                  samplePosts[index].posterPath,
+                                            ),
+                                            fit: BoxFit.cover)),
+                                  ),
+                                  SizedBox(height: 10),
+                                  Center(
+                                    child: Text(
+                                      '${samplePosts[index].title}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontFamily: 'hello',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              SizedBox(height: 10),
-                            ],
+                            ),
                           ),
                         );
                       },
@@ -99,7 +139,6 @@ class _HomePageState extends State<HomePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 10),
         Text(
           "Find best \nmovie for you",
           style: TextStyle(
@@ -114,9 +153,10 @@ class _HomePageState extends State<HomePage> {
           height: 60,
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: Colors.black54),
-              color: Colors.grey),
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(color: Colors.black54),
+            color: Color(0xFF292b37),
+          ),
         ),
         SizedBox(height: 20),
       ],
