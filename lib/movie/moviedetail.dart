@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movieapp/models.dart';
+
+import 'movie_models.dart';
 
 class MovieDetail extends StatelessWidget {
   final SamplePosts sample;
@@ -24,6 +26,22 @@ class MovieDetail extends StatelessWidget {
                         opacity: 50,
                         colorFilter: ColorFilter.srgbToLinearGamma(),
                         fit: BoxFit.cover)),
+                // child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       IconButton(
+                //           onPressed: () => Navigator.pop(context),
+                //           icon: Icon(
+                //             CupertinoIcons.back,
+                //             size: 40,
+                //           )),
+                //       IconButton(
+                //           onPressed: () {},
+                //           icon: Icon(
+                //             Icons.favorite_border_sharp,
+                //             size: 40,
+                //           ))
+                //     ]),
               ),
             ),
             Positioned(
