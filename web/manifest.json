@@ -1,5 +1,5 @@
 {
-    "name": "movieapp",
+    "title": "movieapp",
     "short_name": "movieapp",
     "start_url": ".",
     "display": "standalone",

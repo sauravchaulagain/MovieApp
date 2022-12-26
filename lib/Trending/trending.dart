@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:movieapp/Trending/trending_model.dart';
+import 'package:movieapp/Trending/trendingmodle.dart';
 
 class TrendingPage extends StatefulWidget {
   const TrendingPage({Key? key}) : super(key: key);
@@ -15,11 +15,12 @@ class _TrendingPageState extends State<TrendingPage> {
   List<TrendingList> trendingPosts = [];
   Future<List<TrendingList>> getTrendingData() async {
     final response = await http.get(Uri.parse(
-      'https://raw.githubusercontent.com/sauravchaulagain/MovieApp/commit2/assets/trending.json',
+      '',
     ));
-    var daata = jsonDecode(response.body);
+//
+    var data = jsonDecode(response.body);
 
-    for (Map<String, dynamic> index in daata) {
+    for (Map<String, dynamic> index in data) {
       trendingPosts.add(TrendingList.fromJson(index));
     }
     return trendingPosts;
@@ -33,7 +34,7 @@ class _TrendingPageState extends State<TrendingPage> {
         if (snapshot.hasData) {
           return ListView.builder(
             scrollDirection: Axis.horizontal,
-            itemCount: 2,
+            itemCount: trendingPosts.length,
             itemBuilder: (context, index) {
               return InkWell(
                 // onTap: () {
@@ -41,10 +42,10 @@ class _TrendingPageState extends State<TrendingPage> {
                 //     context,
                 //     MaterialPageRoute(
                 //       builder: (context) =>
-                //           MovieDetail(sample: samplePosts[index]),
+                //           MovieDetail(sample: trendingPosts[index]),
                 //     ),
                 //   );
-                //},
+                // },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -53,24 +54,24 @@ class _TrendingPageState extends State<TrendingPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // Container(
-                        //   height: 220,
-                        //   width: 160,
-                        //   decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(18),
-                        //
-                        //       //  border: Border.all(color: Colors.white),
-                        //       image: DecorationImage(
-                        //           image: NetworkImage(
-                        //             'https://image.tmdb.org/t/p/w500/' +
-                        //                 trendingPosts[index].posterPath,
-                        //           ),
-                        //           fit: BoxFit.cover)),
-                        // ),
+                        Container(
+                          height: 220,
+                          width: 160,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+
+                              //  border: Border.all(color: Colors.white),
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500/' +
+                                        trendingPosts[index].posterPath,
+                                  ),
+                                  fit: BoxFit.cover)),
+                        ),
                         SizedBox(height: 10),
                         Center(
                           child: Text(
-                            '{trendingPosts[index].title}',
+                            '${trendingPosts[index].title}',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'hello',
