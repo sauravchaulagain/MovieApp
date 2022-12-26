@@ -12,69 +12,71 @@ String trendingListToJson(List<TrendingList> data) =>
 
 class TrendingList {
   TrendingList({
-    required this.adult,
     required this.backdropPath,
-    required this.genreIds,
     required this.id,
-    required this.originalLanguage,
+    required this.title,
     required this.originalTitle,
     required this.overview,
-    required this.popularity,
     required this.posterPath,
+    required this.popularity,
     required this.releaseDate,
-    required this.title,
     required this.video,
     required this.voteAverage,
     required this.voteCount,
+    required this.name,
+    required this.originalName,
+    required this.firstAirDate,
   });
 
-  bool adult;
   String backdropPath;
-  List<int> genreIds;
   int id;
-  String originalLanguage;
+  String title;
+
   String originalTitle;
   String overview;
-  double popularity;
   String posterPath;
-  DateTime releaseDate;
-  String title;
+  double popularity;
+  String releaseDate;
   bool video;
   double voteAverage;
   int voteCount;
+  String name;
+  String originalName;
+  String firstAirDate;
 
   factory TrendingList.fromJson(Map<String, dynamic> json) => TrendingList(
-        adult: json["adult"],
         backdropPath: json["backdrop_path"],
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
+        releaseDate: json["releaseDate"],
         id: json["id"],
-        originalLanguage: json["original_language"],
-        originalTitle: json["original_title"],
+        title: json["title"] == null ? null : json["title"],
+        originalTitle:
+            json["original_title"] == null ? null : json["original_title"],
         overview: json["overview"],
-        popularity: json["popularity"].toDouble(),
         posterPath: json["poster_path"],
-        releaseDate: DateTime.parse(json["release_date"]),
-        title: json["title"],
-        video: json["video"],
+        popularity: json["popularity"].toDouble(),
+        video: json["video"] == null ? null : json["video"],
         voteAverage: json["vote_average"].toDouble(),
         voteCount: json["vote_count"],
+        name: json["name"] == null ? null : json["name"],
+        originalName:
+            json["original_name"] == null ? null : json["original_name"],
+        firstAirDate: json["first_air_date"],
       );
 
   Map<String, dynamic> toJson() => {
-        "adult": adult,
         "backdrop_path": backdropPath,
-        "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
         "id": id,
-        "original_language": originalLanguage,
-        "original_title": originalTitle,
+        "title": title == null ? null : title,
+        "original_title": originalTitle == null ? null : originalTitle,
         "overview": overview,
-        "popularity": popularity,
         "poster_path": posterPath,
-        "release_date":
-            "${releaseDate.year.toString().padLeft(4, '0')}-${releaseDate.month.toString().padLeft(2, '0')}-${releaseDate.day.toString().padLeft(2, '0')}",
-        "title": title,
-        "video": video,
+        "popularity": popularity,
+        "release_date": releaseDate,
+        "video": video == null ? null : video,
         "vote_average": voteAverage,
         "vote_count": voteCount,
+        "name": name == null ? null : name,
+        "original_name": originalName == null ? null : originalName,
+        "first_air_date": firstAirDate,
       };
 }
