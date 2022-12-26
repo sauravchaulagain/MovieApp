@@ -22,6 +22,7 @@ class TrendingList {
     required this.mediaType,
     required this.popularity,
     required this.releaseDate,
+    required this.video,
     required this.voteAverage,
     required this.voteCount,
     required this.name,
@@ -33,14 +34,13 @@ class TrendingList {
   String backdropPath;
   int id;
   String title;
-
   String originalTitle;
   String overview;
   String posterPath;
   String mediaType;
   double popularity;
   String releaseDate;
-
+  bool video;
   double voteAverage;
   int voteCount;
   String name;
@@ -58,6 +58,7 @@ class TrendingList {
         mediaType: json["media_type"],
         popularity: json["popularity"].toDouble(),
         releaseDate: json["release_date"],
+        video: json["video"],
         voteAverage: json["vote_average"].toDouble(),
         voteCount: json["vote_count"],
         name: json["name"],
@@ -76,6 +77,7 @@ class TrendingList {
         "media_type": mediaType,
         "popularity": popularity,
         "release_date": releaseDate,
+        "video": video,
         "vote_average": voteAverage,
         "vote_count": voteCount,
         "name": name,

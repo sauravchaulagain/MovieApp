@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movieapp/Trending/trending.dart';
 
 import '../movie/movies.dart';
 import '../tv show/tv.dart';
@@ -17,6 +18,21 @@ class HomeScreen extends StatelessWidget {
               TopDecor(),
               Text(
                 'Trending',
+                style: TextStyle(
+                  fontFamily: 'hello',
+                  fontSize: 28,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 20),
+              Container(
+                height: 310,
+                child: TrendingPage(),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Movie',
                 style: TextStyle(
                   fontFamily: 'hello',
                   fontSize: 28,
