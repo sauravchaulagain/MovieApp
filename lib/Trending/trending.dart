@@ -20,9 +20,9 @@ class _MoviePageState extends State<MoviePage> {
     var data = jsonDecode(response.body);
 
     for (Map<String, dynamic> index in data) {
-      trendingPosts.add(TrendingList().fromJson(index));
+      trendingPosts.add(SamplePosts.fromJson(index));
     }
-    return samplePosts;
+    return trendingPosts;
   }
 
   @override
@@ -32,21 +32,20 @@ class _MoviePageState extends State<MoviePage> {
         future: getData(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(samplePosts[2].title);
             return ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: samplePosts.length,
+              itemCount: trendingPosts.length,
               itemBuilder: (context, index) {
                 return InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            MovieDetail(sample: samplePosts[index]),
-                      ),
-                    );
-                  },
+                  // onTap: () {
+                  //   Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) =>
+                  //           MovieDetail(sample: samplePosts[index]),
+                  //     ),
+                  //   );
+                  // },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -65,14 +64,14 @@ class _MoviePageState extends State<MoviePage> {
                                 image: DecorationImage(
                                     image: NetworkImage(
                                       'https://image.tmdb.org/t/p/w500/' +
-                                          samplePosts[index].posterPath,
+                                          trendingPosts[index].posterPath,
                                     ),
                                     fit: BoxFit.cover)),
                           ),
                           SizedBox(height: 10),
                           Center(
                             child: Text(
-                              '${samplePosts[index].title}',
+                              '${trendingPosts[index].title}',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: 'hello',
