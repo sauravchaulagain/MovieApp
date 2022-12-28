@@ -1,99 +1,95 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:movieapp/tv%20show/tv_detail.dart';
-import 'package:movieapp/tv%20show/tv_modle.dart';
+import 'package:movieapp/Trending/trendingdetail.dart';
+import 'package:movieapp/Trending/trendingmodle.dart';
+import 'package:movieapp/crud/base_client.dart';
 
-class TVPage extends StatefulWidget {
-  const TVPage({Key? key}) : super(key: key);
+class TvPage extends StatefulWidget {
+  const TvPage({Key? key}) : super(key: key);
 
   @override
-  State<TVPage> createState() => _TVPageState();
+  State<TvPage> createState() => _TvPageState();
 }
 
-class _TVPageState extends State<TVPage> {
-  List<TvList> TvPosts = [];
-  Future<List<TvList>> getTvData() async {
-    final response = await http.get(
-      Uri.parse(
-          'https://raw.githubusercontent.com/sauravchaulagain/MovieApp/main/assets/tv.json'),
-    );
-    //'https://raw.githubusercontent.com/sauravchaulagain/MovieApp/commit2/assets/tv.json'));
-    var data = jsonDecode(response.body);
+class _TvPageState extends State<TvPage> {
+  List<TrendingPost> Tvpost = [];
+  var isloaded = false;
 
-    for (Map<String, dynamic> index in data) {
-      TvPosts.add(TvList.fromJson(index));
+  getTrending() async {
+    Tvpost = (await TvApiClass().getTvData())!;
+    if (Tvpost != null) {
+      setState(() {
+        isloaded = true;
+      });
     }
-    return TvPosts;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getTrending();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: getTvData(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: TvPosts.length,
-            itemBuilder: (context, index) {
-              print(TvPosts);
-              return InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TvDetail(tv: TvPosts[index]),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 290,
-                    width: 180,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          height: 220,
-                          width: 160,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(18),
-
-                              //  border: Border.all(color: Colors.white),
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                    'https://image.tmdb.org/t/p/w500/' +
-                                        TvPosts[index].posterPath,
-                                  ),
-                                  fit: BoxFit.cover)),
-                        ),
-                        SizedBox(height: 10),
-                        Center(
-                          child: Text(
-                            '${TvPosts[index].title}',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'hello',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+    return Visibility(
+      visible: isloaded,
+      replacement: Center(
+        child: CircularProgressIndicator(),
+      ),
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: Tvpost.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TrendingDetail(trending: Tvpost[index]),
                 ),
               );
             },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 290,
+                width: 180,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 220,
+                      width: 160,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(18),
+                          border: Border.all(color: Colors.white),
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                'https://image.tmdb.org/t/p/w500/${Tvpost[index].posterPath}',
+                              ),
+                              fit: BoxFit.cover)),
+                    ),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: Text(
+                        Tvpost[index].title,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontFamily: 'hello',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           );
-        } else {
-          return Center(child: CircularProgressIndicator());
-        }
-      },
+        },
+      ),
     );
   }
 }

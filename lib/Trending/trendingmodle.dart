@@ -1,23 +1,23 @@
 // To parse this JSON data, do
 //
-//     final trendingList = trendingListFromJson(jsonString);
+//     final trendingPost = trendingPostFromJson(jsonString);
 
 import 'dart:convert';
 
-List<TrendingList> trendingListFromJson(String str) => List<TrendingList>.from(
-    json.decode(str).map((x) => TrendingList.fromJson(x)));
+List<TrendingPost> trendingPostFromJson(String str) => List<TrendingPost>.from(
+    json.decode(str).map((x) => TrendingPost.fromJson(x)));
 
-String trendingListToJson(List<TrendingList> data) =>
+String trendingPostToJson(List<TrendingPost> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class TrendingList {
-  TrendingList({
+class TrendingPost {
+  TrendingPost({
     required this.backdropPath,
     required this.id,
     required this.title,
     required this.overview,
     required this.posterPath,
-    required this.screen,
+    required this.screenpath,
     required this.date,
     required this.voteAverage,
   });
@@ -27,17 +27,17 @@ class TrendingList {
   String title;
   String overview;
   String posterPath;
-  String screen;
+  String screenpath;
   DateTime date;
   double voteAverage;
 
-  factory TrendingList.fromJson(Map<String, dynamic> json) => TrendingList(
+  factory TrendingPost.fromJson(Map<String, dynamic> json) => TrendingPost(
         backdropPath: json["backdrop_path"],
         id: json["id"],
         title: json["title"],
         overview: json["overview"],
         posterPath: json["poster_path"],
-        screen: json["screen"],
+        screenpath: json["screenpath"],
         date: DateTime.parse(json["date"]),
         voteAverage: json["vote_average"].toDouble(),
       );
@@ -48,7 +48,7 @@ class TrendingList {
         "title": title,
         "overview": overview,
         "poster_path": posterPath,
-        "screen": screen,
+        "screenpath": screenpath,
         "date":
             "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}",
         "vote_average": voteAverage,

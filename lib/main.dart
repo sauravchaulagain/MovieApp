@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movieapp/crud/crudpage.dart';
+import 'package:movieapp/homepage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme:
           ThemeData(backgroundColor: Colors.black, primaryColor: Colors.black),
-      home: CrudPage(),
+      home: HomePage(),
     );
   }
 }
