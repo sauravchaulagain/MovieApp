@@ -10,54 +10,47 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Padding(
-        padding: const EdgeInsets.all(26.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TopDecor(),
               Text(
-                'Trending',
+                ' Trending',
                 style: TextStyle(
                   fontFamily: 'hello',
-                  fontSize: 28,
+                  fontSize: 22,
                   fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 20),
               Container(
                 height: 310,
                 child: TrendingPage(),
               ),
-              SizedBox(height: 10),
               Text(
-                'Movie',
+                ' Movie',
                 style: TextStyle(
                   fontFamily: 'hello',
-                  fontSize: 28,
+                  fontSize: 22,
                   fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 20),
               Container(
                 height: 310,
                 child: MoviePage(),
-              ),
-              SizedBox(
-                height: 10,
               ),
               Text(
                 'Tv Shows',
                 style: TextStyle(
                   fontFamily: 'hello',
-                  fontSize: 28,
+                  fontSize: 22,
                   fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),
               ),
-              SizedBox(height: 20),
               Container(
                 height: 310,
                 child: TvPage(),
@@ -91,25 +84,38 @@ class HomeScreen extends StatelessWidget {
             border: Border.all(color: Colors.black54),
             color: Color(0xFF292b37),
           ),
-          child: Row(
-            children: [
-              SizedBox(width: 20),
-              Icon(
-                Icons.search,
-                size: 30,
-                color: Colors.white30,
-              ),
-              Text(
-                'Search',
-                style: TextStyle(
-                  fontFamily: 'hello',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white30,
-                ),
-              )
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                  icon: Icon(
+                    Icons.search,
+                    color: Colors.white38,
+                  ),
+                  hintText: 'Search',
+                  hintStyle: TextStyle(color: Colors.white38)),
+            ),
           ),
+          // child: Row(
+          //   children: [
+          //     SizedBox(width: 20),
+          //     Icon(
+          //       Icons.search,
+          //       size: 30,
+          //       color: Colors.white30,
+          //     ),
+          //     Text(
+          //       'Search',
+          //       style: TextStyle(
+          //         fontFamily: 'hello',
+          //         fontSize: 18,
+          //         fontWeight: FontWeight.w500,
+          //         color: Colors.white30,
+          //       ),
+          //     )
+          //   ],
+          // ),
         ),
         SizedBox(height: 20),
       ],
