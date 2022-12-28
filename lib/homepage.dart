@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           currentIndex: navIndex,
           backgroundColor: Colors.black,
           showUnselectedLabels: false,
-          selectedItemColor: Colors.blue,
+          selectedItemColor: Colors.greenAccent,
           unselectedItemColor: Colors.white60,
           selectedFontSize: 14,
           iconSize: 30,

@@ -50,7 +50,7 @@ class _MoviePageState extends State<MoviePage> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
+                  child: SizedBox(
                     height: 290,
                     width: 180,
                     child: Column(
@@ -65,17 +65,16 @@ class _MoviePageState extends State<MoviePage> {
                               //  border: Border.all(color: Colors.white),
                               image: DecorationImage(
                                   image: NetworkImage(
-                                    'https://image.tmdb.org/t/p/w500/' +
-                                        samplePosts[index].posterPath,
+                                    'https://image.tmdb.org/t/p/w500/${samplePosts[index].posterPath}',
                                   ),
                                   fit: BoxFit.cover)),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Center(
                           child: Text(
-                            '${samplePosts[index].title}',
+                            samplePosts[index].title,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontFamily: 'hello',
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -91,7 +90,7 @@ class _MoviePageState extends State<MoviePage> {
             },
           );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );

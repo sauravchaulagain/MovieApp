@@ -15,8 +15,11 @@ class TVPage extends StatefulWidget {
 class _TVPageState extends State<TVPage> {
   List<TvList> TvPosts = [];
   Future<List<TvList>> getTvData() async {
-    final response = await http.get(Uri.parse(
-        'https://raw.githubusercontent.com/sauravchaulagain/MovieApp/commit2/assets/tv.json'));
+    final response = await http.get(
+      Uri.parse(
+          'https://raw.githubusercontent.com/sauravchaulagain/MovieApp/main/assets/tv.json'),
+    );
+    //'https://raw.githubusercontent.com/sauravchaulagain/MovieApp/commit2/assets/tv.json'));
     var data = jsonDecode(response.body);
 
     for (Map<String, dynamic> index in data) {
