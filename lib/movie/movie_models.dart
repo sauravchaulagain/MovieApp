@@ -12,25 +12,24 @@ String samplePostsToJson(List<SamplePosts> data) =>
 
 class SamplePosts {
   SamplePosts({
-    this.adult,
-    this.backdropPath,
-    this.id,
-    this.originalLanguage,
-    this.originalTitle,
-    this.overview,
-    this.popularity,
-    this.posterPath,
-    this.releaseDate,
-    this.title,
-    this.video,
-    this.voteAverage,
-    this.voteCount,
+    required this.adult,
+    required this.backdropPath,
+    required this.id,
+    required this.originalTitle,
+    required this.overview,
+    required this.popularity,
+    required this.posterPath,
+    required this.releaseDate,
+    required this.title,
+    required this.video,
+    required this.voteAverage,
+    required this.voteCount,
   });
 
   bool adult;
   String backdropPath;
   int id;
-  OriginalLanguage originalLanguage;
+
   String originalTitle;
   String overview;
   double popularity;
@@ -45,7 +44,6 @@ class SamplePosts {
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
         id: json["id"],
-        originalLanguage: originalLanguageValues.map[json["original_language"]],
         originalTitle: json["original_title"],
         overview: json["overview"],
         popularity: json["popularity"].toDouble(),
@@ -61,7 +59,6 @@ class SamplePosts {
         "adult": adult,
         "backdrop_path": backdropPath,
         "id": id,
-        "original_language": originalLanguageValues.reverse[originalLanguage],
         "original_title": originalTitle,
         "overview": overview,
         "popularity": popularity,
@@ -75,20 +72,20 @@ class SamplePosts {
       };
 }
 
-enum OriginalLanguage { EN }
+//enum OriginalLanguage { EN }
 
-final originalLanguageValues = EnumValues({"en": OriginalLanguage.EN});
+// final originalLanguageValues = EnumValues({"en": OriginalLanguage.EN});
 
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
-}
+// class EnumValues<T> {
+//   Map<String, T> map;
+//   Map<T, String> reverseMap;
+//
+//   EnumValues(this.map);
+//
+//   Map<T, String> get reverse {
+//     if (reverseMap == null) {
+//       reverseMap = map.map((k, v) => new MapEntry(v, k));
+//     }
+//     return reverseMap;
+//   }
+// }
